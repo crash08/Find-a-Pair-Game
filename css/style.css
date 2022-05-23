@@ -128,3 +128,9 @@
 
 
 
+@media (max-width: 480px) {
+  .list {
+    grid-template: repeat(4, 60px) / repeat(4, 60px);
+  }
+}
+
