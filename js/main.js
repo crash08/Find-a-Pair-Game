@@ -5,14 +5,18 @@
 
     const WAIT_TIME_MS = 500;
     const CARD_NUM = 16;
+    const TIMER_S = 60;
 
+    let timerID;
     let selectedCards = [];
     let yesCardsNum = 0;
+
 
     //Создаем список для карточек
     const list = document.createElement('ul');
     list.classList.add('list');
 
+    //Кнопка "Сыграть еще раз"
     const playAgainButton = document.createElement('button');
     playAgainButton.textContent = 'Сыграть ещё раз';
     playAgainButton.classList.add('button');
@@ -20,6 +24,20 @@
       deleteGame();
       createGame();
     })
+
+    //Кнопка "Начать игру"
+    const startGameButton = document.createElement('button');
+    startGameButton.textContent = 'Начать игру';
+    startGameButton.classList.add('button');
+    startGameButton.addEventListener('click', function () {
+      this.remove();
+      startGame()
+    });
+
+    //Таймер
+    const timerDisplay = document.createElement('div');
+    timerDisplay.classList.add('timer');
+    timerDisplay.textContent = TIMER_S;
 
 
     //Функция создания номеров карточек и их перемешивание
@@ -68,7 +86,6 @@
     //Функция сравнения карточек
     function compare() {
       selectedCards = document.querySelectorAll('.selected');
-      console.log(selectedCards);
       if (selectedCards.length === 2) {
         setTimeout(function () {
           if (selectedCards[0].textContent === selectedCards[1].textContent) {
@@ -90,18 +107,36 @@
     //Запуск игры
     function startGame() {
       arrayCardNumbersCreateAndMix();
+      APP.append(timerDisplay);
       APP.append(list);
+
+      timerID = setInterval(() => {
+        timerDisplay.textContent = parseInt(timerDisplay.textContent) - 1;
+
+        if (parseInt(timerDisplay.textContent) === 0) {
+          clearInterval(timerID);
+          timerDisplay.textContent = 'Время вышло!';
+          endGame();
+        }
+      }, 1000);
     }
 
+    //Завершение игры (когда крайние карточки были найдены)
     function endGame() {
+      clearInterval(timerID);
+      let listCards = document.querySelectorAll('.list__card');
+      for (listCard of listCards) {
+        listCard.classList.add('yes');
+      }
       APP.append(playAgainButton);
     }
 
+    //Удалить игру
     function deleteGame() {
       APP.innerHTML = '';
     }
 
-    startGame();
+    APP.append(startGameButton);
   }
 
 

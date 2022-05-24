@@ -60,7 +60,7 @@
 ============================================================================ */
 
 .header {
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid black;
 }
 
 .header__container {
@@ -73,7 +73,7 @@
 }
 
 .app {
-  margin-top: 40px;
+  margin-top: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -81,7 +81,7 @@
 }
 
 .list {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   display: grid;
   grid-template: repeat(4, 80px) / repeat(4, 80px);
   gap: 15px;
@@ -98,6 +98,7 @@
   transform: scaleX(-1);
   transition: transform 0.5s ease, color 0.1s cubic-bezier(.95,0,1,.05), box-shadow 0.2s ease;
   color: rgba(1, 1, 1, 0);
+  user-select: none;
 }
 
 .list__card:not(.selected, .yes):hover {
@@ -118,7 +119,7 @@
   padding: 12px 30px;
   color: black;
   background-color: transparent;
-  border: 1px solid black;
+  border: 2px solid black;
   cursor: pointer;
   transition: transform 0.1s ease;
 }
@@ -127,11 +128,22 @@
   transform: translate(2px, 2px);
 }
 
+.timer {
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
 
 
 @media (max-width: 480px) {
   .list {
     grid-template: repeat(4, 60px) / repeat(4, 60px);
+  }
+  .list__card:not(.selected, .yes):active {
+    box-shadow: 5px -5px 0px black;
+  }
+  .list__card:not(.selected, .yes):hover {
+    box-shadow: none;
   }
 }
 
