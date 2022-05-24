@@ -25,14 +25,28 @@
       createGame();
     })
 
-    //Кнопка "Начать игру"
+    //Форма начала игры
+    const form = document.createElement('form');
     const startGameButton = document.createElement('button');
+    const cardsNumInput = document.createElement('input');
+    const cardsNumInputLabel = document.createElement('label');
+
     startGameButton.textContent = 'Начать игру';
     startGameButton.classList.add('button');
-    startGameButton.addEventListener('click', function () {
-      this.remove();
-      startGame()
+    form.addEventListener('submit', () => {
+      form.remove();
+      startGame();
     });
+
+    cardsNumInput.placeholder = 'Чётное число от 2 до 10';
+    cardsNumInput.classList.add('form__input');
+    cardsNumInputLabel.classList.add('form__label');
+    cardsNumInputLabel.textContent = 'Кол-во карточек по вертикали/горизонтали';
+    form.classList.add('form');
+
+    form.append(cardsNumInputLabel);
+    form.append(cardsNumInput);
+    form.append(startGameButton);
 
     //Таймер
     const timerDisplay = document.createElement('div');
@@ -68,8 +82,11 @@
     //Функция создания карточки
     function cardCreate(number) {
       const card = document.createElement('li');
+      const innerCard = document.createElement('div');
       card.classList.add('list__card');
-      card.textContent = number;
+      innerCard.classList.add('list__inner-card');
+      innerCard.textContent = number;
+      card.append(innerCard);
 
       //Событие клик
       card.addEventListener('click', function () {
@@ -136,7 +153,7 @@
       APP.innerHTML = '';
     }
 
-    APP.append(startGameButton);
+    APP.append(form);
   }
 
 
