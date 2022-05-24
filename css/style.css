@@ -60,7 +60,7 @@
 ============================================================================ */
 
 .header {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid black;
 }
 
 .header__container {
@@ -81,8 +81,9 @@
 }
 
 .list {
+  margin-bottom: 30px;
   display: grid;
-  grid-template: repeat(4, 100px) / repeat(4, 100px);
+  grid-template: repeat(4, 80px) / repeat(4, 80px);
   gap: 15px;
 }
 
@@ -95,35 +96,35 @@
   outline: 2px solid black;
   cursor: pointer;
   transform: scaleX(-1);
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, color 0.1s cubic-bezier(.95,0,1,.05), box-shadow 0.2s ease;
+  color: rgba(1, 1, 1, 0);
 }
 
-.list__card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  transform: scaleX(1);
-  transition: transform 0.25s ease;
+.list__card:not(.selected, .yes):hover {
+  box-shadow: 5px -5px 0px black;
 }
 
 .selected {
   transform: scaleX(1);
+  color: rgba(1, 1, 1, 1);
 }
 
 .yes {
   transform: scaleX(1);
+  color: rgba(1, 1, 1, 1);
 }
 
-.list__card.selected::after {
-  transform: scaleX(0);
+.button {
+  padding: 12px 30px;
+  color: black;
+  background-color: transparent;
+  border: 1px solid black;
+  cursor: pointer;
+  transition: transform 0.1s ease;
 }
 
-.list__card.yes::after {
-  transform: scaleX(0);
+.button:hover {
+  transform: translate(2px, 2px);
 }
 
 
