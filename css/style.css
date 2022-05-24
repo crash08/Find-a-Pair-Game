@@ -1,5 +1,6 @@
 :root {
-  --gap: 15px;
+  --gap: 10px;
+  --row-num: 4;
 }
 
 /* ============================================================================
@@ -89,6 +90,10 @@
   flex-direction: column;
 }
 
+.form.error .form__input {
+  border-color: red;
+}
+
 .form__input {
   margin-bottom: 15px;
   padding: 12px 5px;
@@ -111,8 +116,8 @@
 
 .list__card {
   position: relative;
-  width: calc((100%/4) - var(--gap));
-  padding-bottom: calc((100%/4) - var(--gap));
+  width: calc((100% / var(--row-num)) - var(--gap));
+  padding-bottom: calc((100% / var(--row-num)) - var(--gap));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -175,6 +180,9 @@
 @media (max-width: 480px) {
   .list__card:not(.selected, .yes):hover {
     box-shadow: none;
+  }
+  .form__label {
+    font-size: 14px;
   }
 }
 

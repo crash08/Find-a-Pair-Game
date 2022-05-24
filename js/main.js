@@ -4,9 +4,10 @@
     const APP = document.getElementById('app');
 
     const WAIT_TIME_MS = 500;
-    const CARD_NUM = 16;
     const TIMER_S = 60;
+    const MAX_NUM_ROW = 6;
 
+    let cardNum = 0;
     let timerID;
     let selectedCards = [];
     let yesCardsNum = 0;
@@ -33,15 +34,32 @@
 
     startGameButton.textContent = 'Начать игру';
     startGameButton.classList.add('button');
-    form.addEventListener('submit', () => {
-      form.remove();
-      startGame();
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      if (!form.classList.contains('error')) {
+        cardNum = Math.pow(parseInt(cardsNumInput.value), 2);
+        list.style.setProperty('--row-num', parseInt(cardsNumInput.value));
+        form.remove();
+        startGame();
+      } else return;
     });
 
     cardsNumInput.placeholder = 'Чётное число от 2 до 10';
+    cardsNumInput.id = 'cardNum';
+    cardsNumInput.value = 4;
     cardsNumInput.classList.add('form__input');
+    cardsNumInput.type = 'number';
+    cardsNumInput.addEventListener('input', function () {
+      if ((parseInt(this.value) % 2 > 0) || (parseInt(this.value) <= 0) || (parseInt(this.value) > MAX_NUM_ROW)) {
+        form.classList.add('error');
+      } else {
+        form.classList.remove('error');
+      }
+    })
     cardsNumInputLabel.classList.add('form__label');
     cardsNumInputLabel.textContent = 'Кол-во карточек по вертикали/горизонтали';
+    cardsNumInputLabel.setAttribute('for', 'cardNum');
     form.classList.add('form');
 
     form.append(cardsNumInputLabel);
@@ -58,7 +76,7 @@
     function arrayCardNumbersCreateAndMix() {
       let arrayCardNumbers = [];
       //создаем номера от 1 до половины числа карточек
-      for (let i = 1; i <= CARD_NUM / 2; i++) {
+      for (let i = 1; i <= cardNum / 2; i++) {
         arrayCardNumbers.push(i);
         arrayCardNumbers.push(i);
       }
@@ -73,7 +91,7 @@
       shuffle(arrayCardNumbers);
 
       //вызываем функцию создания карточек
-      for (let i = 0; i < CARD_NUM; i++) {
+      for (let i = 0; i < cardNum; i++) {
         cardCreate(arrayCardNumbers[i]);
       }
     }
@@ -109,7 +127,7 @@
             selectedCards[0].classList.add('yes');
             selectedCards[1].classList.add('yes');
             yesCardsNum += 2;
-            if (yesCardsNum === CARD_NUM) {
+            if (yesCardsNum === cardNum) {
               endGame();
             }
           }
