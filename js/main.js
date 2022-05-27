@@ -2,6 +2,7 @@
   function createGame() {
     //Выбираем div для приложения
     const APP = document.getElementById('app');
+    const fireworks = document.getElementById('fireworksWrapper');
 
     const WAIT_TIME_MS = 500;
     const TIMER_S = 60;
@@ -22,6 +23,7 @@
     playAgainButton.textContent = 'Сыграть ещё раз';
     playAgainButton.classList.add('button');
     playAgainButton.addEventListener('click', () => {
+      fireworksStop();
       deleteGame();
       createGame();
     })
@@ -131,6 +133,7 @@
             selectedCards[1].classList.add('yes');
             yesCardsNum += 2;
             if (yesCardsNum === cardNum) {
+              fireworksPlay();
               endGame();
             }
           }
@@ -172,6 +175,16 @@
     //Удалить игру
     function deleteGame() {
       APP.innerHTML = '';
+    }
+
+    function fireworksPlay() {
+      fireworks.style.display = 'block';
+      document.body.style.backgroundColor = 'rgba(1,1,1,0.77)';
+    }
+
+    function fireworksStop() {
+      fireworks.style.display = 'none';
+      document.body.style.backgroundColor = 'rgba(1,1,1,0)';
     }
 
     APP.append(form);
