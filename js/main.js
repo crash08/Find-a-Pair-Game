@@ -5,7 +5,7 @@
 
     const WAIT_TIME_MS = 500;
     const TIMER_S = 60;
-    const MAX_NUM_ROW = 6;
+    const MAX_NUM_ROW = 10;
 
     let cardNum = 0;
     let timerID;
@@ -51,7 +51,10 @@
     cardsNumInput.classList.add('form__input');
     cardsNumInput.type = 'number';
     cardsNumInput.addEventListener('input', function () {
-      if ((parseInt(this.value) % 2 > 0) || (parseInt(this.value) <= 0) || (parseInt(this.value) > MAX_NUM_ROW)) {
+      if ((Number(this.value) % 2 > 0) ||
+        (parseInt(this.value) <= 0) ||
+        (parseInt(this.value) > MAX_NUM_ROW) ||
+        (isEmpty(this.value))) {
         form.classList.add('error');
       } else {
         form.classList.remove('error');
@@ -172,6 +175,10 @@
     }
 
     APP.append(form);
+  }
+
+  function isEmpty(value) {
+    return !value;
   }
 
 
