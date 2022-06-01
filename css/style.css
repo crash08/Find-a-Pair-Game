@@ -13,6 +13,8 @@
     box-sizing: border-box;
     border-color: transparent;
     outline-color: transparent;
+    -webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;
+    -ms-touch-action: manipulation;touch-action: manipulation;
   }
 
   html, body {
@@ -24,7 +26,7 @@
   }
 
   body {
-    transition: background-color 4s ease;
+    transition: background-color 1s ease;
   }
 
   ul {
@@ -108,6 +110,7 @@
   border: 2px solid black;
   outline: none;
   border-radius: 0;
+  -webkit-user-select: auto;-moz-user-select: auto;-ms-user-select: auto;user-select: auto;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
@@ -136,6 +139,7 @@ input[type='number'] {
   flex-wrap: wrap;
   max-width: 400px;
   gap: var(--gap);
+  user-select: none;
 }
 
 .list__card {
@@ -150,9 +154,8 @@ input[type='number'] {
   outline: 2px solid black;
   cursor: pointer;
   transform: scaleX(-1);
-  transition: transform 0.5s ease, color 0.15s cubic-bezier(.95,0,1,.05), box-shadow 0.2s ease;
+  transition: transform 0.5s ease, color 0.1s cubic-bezier(.95,0,1,.05), box-shadow 0.2s ease;
   color: rgba(1, 1, 1, 0);
-  user-select: none;
 }
 
 .list__inner-card {
@@ -203,6 +206,15 @@ input[type='number'] {
   display: none;
 }
 
+.orientation-error {
+  display: none;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 
 
 @media (max-width: 480px) {
@@ -214,6 +226,15 @@ input[type='number'] {
   }
   .form__label {
     font-size: 14px;
+  }
+}
+
+@media (max-height: 559px) and (orientation: landscape) {
+  .wrapper {
+    display: none;
+  }
+  .orientation-error {
+    display: flex;
   }
 }
 

@@ -4,11 +4,12 @@
     const APP = document.getElementById('app');
     const fireworks = document.getElementById('fireworksWrapper');
 
-    const WAIT_TIME_MS = 500;
+    const WAIT_TIME_MS = 300;
     const TIMER_S = 60;
     const MAX_NUM_ROW = 10;
 
     let cardNum = 0;
+    let rowNum = 0;
     let timerID;
     let selectedCards = [];
     let yesCardsNum = 0;
@@ -41,7 +42,8 @@
 
       if (!form.classList.contains('error')) {
         cardNum = Math.pow(parseInt(cardsNumInput.value), 2);
-        list.style.setProperty('--row-num', parseInt(cardsNumInput.value));
+        rowNum = parseInt(cardsNumInput.value);
+        list.style.setProperty('--row-num', rowNum);
         form.remove();
         startGame();
       } else return;
@@ -80,10 +82,11 @@
     //Функция создания номеров карточек и их перемешивание
     function arrayCardNumbersCreateAndMix() {
       let arrayCardNumbers = [];
-      //создаем номера от 1 до половины числа карточек
-      for (let i = 1; i <= cardNum / 2; i++) {
-        arrayCardNumbers.push(i);
-        arrayCardNumbers.push(i);
+      //создаем номера для карточек
+      for (let i = 1; i <= cardNum / rowNum; i++) {
+        for (let i = 1; i <= cardNum / rowNum; i++) {
+          arrayCardNumbers.push(i);
+        }
       }
       //алгоритм Фишера-Йетса
       function shuffle(array) {
